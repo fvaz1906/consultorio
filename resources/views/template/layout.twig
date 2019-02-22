@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        {% block head %}
+            <meta charset="UF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="description" content="">
+            <meta name="author" content="">
+            <title>{% block title %}{% endblock %} - Dashboard</title>
+
+            <link href="assets/css/all.min.css" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+            <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+            <!--<link href="assets/css/fullcalendar.min.css" rel="stylesheet">
+            <link href="assets/css/fullcalendar.print.min.css" rel="stylesheet">-->
+        {% endblock %}
+    </head>
+    <body>
+        <div id="wrapper">
+        {% block header %}
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                    <!--<div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-laugh-wink"></i>
+                    </div>-->
+                    <div class="sidebar-brand-text mx-3">Walterritti</div>
+                </a>
+
+                <hr class="sidebar-divider my-0">
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Painel de Controle</span></a>
+                </li>
+
+                <hr class="sidebar-divider">
+
+                <div class="sidebar-heading">
+                    
+                </div>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                    <i class="fas fa-users"></i>
+                    <span>Pacientes</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                    <i class="fas fa-address-book"></i>
+                    <span>Consultas</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-users"></i>
+                        <span>Pacientes</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="/">Cadastrar Pacientes</a>
+                            <a class="collapse-item" href="/">Listar Pacientes</a>
+                            <a class="collapse-item" href="/">Agendar Consulta</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-file-signature"></i>
+                        <span>Documentos</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="/">Receitas</a>
+                            <a class="collapse-item" href="/">Atestados</a>
+                            <a class="collapse-item" href="/">Solicitação de Exames</a>
+                            <a class="collapse-item" href="/">Declarações</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1" aria-expanded="true" aria-controls="collapseUtilities1">
+                        <i class="fas fa-money-bill-alt"></i>
+                        <span>Financeiro</span>
+                    </a>
+                    <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="/">Caixa</a>
+                            <a class="collapse-item" href="/">Recibos</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+                        <i class="fas fa-toolbox"></i>
+                        <span>Administração</span>
+                    </a>
+                    <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="/">Exames</a>
+                            <a class="collapse-item" href="/">Medicamentos</a>
+                            <a class="collapse-item" href="/">CID</a>
+                            <a class="collapse-item" href="/">Convênios</a>
+                        </div>
+                    </div>
+                </li>
+
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+
+            </ul>
+        {% endblock %}
+        {% block content %}{% endblock %}
+        {% block footer %}
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2019</span>
+                </div>
+            </div>
+        </footer>
+        {% endblock %}
+        </div>
+        {% block scripts %}
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/jquery.easing.min.js"></script>
+        <script src="assets/js/sb-admin-2.min.js"></script>
+        <!--<script src="assets/js/Chart.min.js"></script>
+        <script src="assets/js/chart-area-demo.js"></script>
+        <script src="assets/js/chart-pie-demo.js"></script>
+        <script src="assets/js/moment.min.js"></script>
+        <script src="assets/js/fullcalendar.min.js"></script>
+        <script src="assets/js/calendario.js"></script>-->
+        {% endblock %}
+    </body>
+</html>
