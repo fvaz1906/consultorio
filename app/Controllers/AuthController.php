@@ -11,14 +11,16 @@ class AuthController extends BaseController
 {
     public function getSignUp($request, $response)
     {
-        return $this->c->view->render($response, 'authentication/signup.twig');
+        $guard = new Csrf;
+        $csrf = $guard->generateCsrf($request);
+        return $this->c->view->render($response, 'authentication/signup.twig', ['csrf' => $csrf]);
     }
 
     public function postSignUp($request, $response)
     {
-
         User::create([
             'email' => $request->getParam('email'),
+            'perfil' => 4,
             'name' => $request->getParam('name'),
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
         ]);

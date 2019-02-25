@@ -1,13 +1,18 @@
 $(document).ready(function() {
 
+    now = new Date;
+    month = now.getMonth()+1;
+    date = now.getFullYear() + '-' + month  + '-' + now.getDate();
+
     $('#calendar').fullCalendar({
-        defaultView: 'agendaWeek',
+        defaultView: 'month',
+        locale: 'pt-br',
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay,listWeek'
+            right: 'month,agendaWeek,agendaDay'
         },
-        defaultDate: '2019-01-12',
+        defaultDate: date,
         navLinks: true, // can click day/week names to navigate views
         editable: true,
         eventLimit: true, // allow "more" link when too many events

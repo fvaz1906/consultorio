@@ -10,3 +10,6 @@ $app->post('/auth/signup', '\App\Controllers\AuthController:postSignUp');
 $app->get('/', '\App\Controllers\HomeController:index')->add( new \App\Middleware\Middleware($container));
 $app->get('/logout', '\App\Controllers\HomeController:logout')->setName('logout');
 
+//Pacientes
+$app->get('/patient/list', '\App\Controllers\PatientController:index')->add( new \App\Middleware\Middleware($container));
+$app->get('/patient/add', '\App\Controllers\PatientController:add')->add( new \App\Middleware\Middleware($container));
