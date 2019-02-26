@@ -119,7 +119,9 @@
                                 <div class="form-group">
                                     <label>Convênio:</label>
                                     <select class="form-control">
-                                        <option value="">Hapvida</option>
+                                        {% for agreement in agreements %}
+                                            <option value="{{agreement.id}}">{{agreement.agreement}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\User;
+use App\Models\Agreement;
 
 class PatientController extends BaseController
 {
@@ -20,7 +20,8 @@ class PatientController extends BaseController
     {
         $data = [
             'name_user' => $_SESSION['USER'],
-            'photo_user' => '/assets/images/default-avatar.jpg'
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'agreements' => Agreement::all()
         ];
         
         return $this->c->view->render($response, 'patient/add_patient.html', $data);
