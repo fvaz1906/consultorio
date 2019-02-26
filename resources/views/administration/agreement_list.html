@@ -1,0 +1,60 @@
+{% extends "template/layout.twig" %}
+
+{% block title %}Lista de Convênios{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/administration/agreement/list">Convênios</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lista de Convênios</li>
+                </ol>
+            </nav>
+            <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3 class="m-1 font-weight-bold text-primary">Lista de Convênios</h3>
+                            </div>
+                            <div class="col-sm-6">
+                                <a class="btn btn-primary btn-circle btn-locale" href="/administration/agreement/add"><i class="fas fa-plus-square"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr align="center">
+                                    <th>ID</th>
+                                    <th>Convênios</th>
+                                    <th>Data de Criação</th>
+                                    <th>Data de Atualização</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for covenant in covenants %}
+                                    <tr align="center">
+                                        <td>{{ covenant.id }}</td>
+                                        <td>{{ covenant.agreement }}</td>
+                                        <td>{{ covenant.created_at }}</td>
+                                        <td>{{ covenant.updated_at }}</td>
+                                        <td>
+                                            <a class="btn btn-warning btn-circle btn-sm" href="/administration/agreement/edit/{{ covenant.id }}"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger btn-circle btn-sm" href="/administration/agreement/remove/{{ covenant.id }}"><i class="fas fa-times-circle"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block footer %}{% endblock %}
+    </div>
+{% endblock %}

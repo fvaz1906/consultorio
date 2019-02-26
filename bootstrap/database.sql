@@ -18,3 +18,11 @@ CREATE TABLE `walterritti`.`walt_usuarios` (
 PRIMARY KEY (`id`),
 FOREIGN KEY (`perfil`) REFERENCES walt_perfil(`id`),
 UNIQUE INDEX `email_UNIQUE` (`email` ASC));
+
+CREATE TABLE `walterritti`.`walt_agreement` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `agreement` VARCHAR(200) NOT NULL,
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+PRIMARY KEY (`id`),
+UNIQUE INDEX `agreement_UNIQUE` (`agreement` ASC));

@@ -1,0 +1,44 @@
+{% extends "template/layout.twig" %}
+
+{% block title %}Edição do Convênios{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/administration/agreement/list">Convênios</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edição do Convênios</li>
+                </ol>
+            </nav>
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">Edição do Convênios</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/administration/agreement/edit" method="POST" autocomplete="off">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Convênio:</label>
+                                    {% for agreements in agreement %}
+                                        <input type="text" class="form-control" placeholder="Convênio" name="agreement" value="{{agreements.agreement}}">
+                                        <input type="hidden" name="agreement_id" value="{{agreements.id}}">
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="{{ csrf.nameKey }}" value="{{ csrf.name }}">
+                        <input type="hidden" name="{{ csrf.valueKey }}" value="{{ csrf.value }}">
+                        <button type="submit" class="btn btn-danger fa-pull-right">Editar Convênio</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% block footer %}{% endblock %}
+    </div>
+{% endblock %}

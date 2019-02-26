@@ -1,0 +1,136 @@
+{% extends "template/layout.twig" %}
+
+{% block title %}Cadastro de Pacientes{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/patient/list">Pacientes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cadastro de Pacientes</li>
+                </ol>
+            </nav>
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">Cadastro de Pacientes</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nome:</label>
+                                    <input type="text" class="form-control" placeholder="Nome">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Sexo</label>
+                                    <select class="form-control">
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Feminino</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Data de Nascimento:</label>
+                                    <input type="text" class="form-control" placeholder="Data de nascimento">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>CPF:</label>
+                                    <input type="text" class="form-control" placeholder="CPF">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Celular:</label>
+                                    <input type="text" class="form-control" placeholder="Celular">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>E-mail:</label>
+                                    <input type="email" class="form-control" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Cor:</label>
+                                    <input type="text" class="form-control" placeholder="Cor">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>CEP</label>
+                                    <input type="text" class="form-control" placeholder="CEP">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Rua:</label>
+                                    <input type="text" class="form-control" placeholder="Rua">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Nº:</label>
+                                    <input type="text" class="form-control" placeholder="Número">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Bairro:</label>
+                                    <input type="text" class="form-control" placeholder="Bairro">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Complemento:</label>
+                                    <input type="text" class="form-control" placeholder="Complemento">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Cidade:</label>
+                                    <input type="text" class="form-control" placeholder="Cidade">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Estado:</label>
+                                    <input type="text" class="form-control" placeholder="Estado">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Convênio:</label>
+                                    <select class="form-control">
+                                        <option value="">Hapvida</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-danger fa-pull-right">Cadastrar Usuário</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% block footer %}{% endblock %}
+    </div>
+{% endblock %}
