@@ -13,7 +13,7 @@ class AuthController extends BaseController
     {
         $guard = new Csrf;
         $csrf = $guard->generateCsrf($request);
-        return $this->c->view->render($response, 'authentication/signup.twig', ['csrf' => $csrf]);
+        return $this->c->view->render($response, 'authentication/signup.html', ['csrf' => $csrf]);
     }
 
     public function postSignUp($request, $response)
@@ -34,7 +34,7 @@ class AuthController extends BaseController
         $csrf = $guard->generateCsrf($request);
         //$logger = new Log;
         //$logger->generateLog('aplicação iniciada... ' . $_SERVER['REMOTE_ADDR']);
-        return $this->c->view->render($response, 'authentication/sign.twig', ['csrf' => $csrf]);
+        return $this->c->view->render($response, 'authentication/sign.html', ['csrf' => $csrf]);
     }
 
     public function postSign($request, $response)

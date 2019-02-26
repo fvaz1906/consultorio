@@ -1,11 +1,11 @@
-{% extends "template/layout.twig" %}
+{% extends "template/layout.html" %}
 
 {% block title %}Cadastro de Pacientes{% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -18,21 +18,25 @@
                     <h3 class="m-0 font-weight-bold text-primary">Cadastro de Pacientes</h3>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form class="needs-validation" action="{{ path_for('patient.add') }}" method="POST" autocomplete="off" novalidate>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nome:</label>
-                                    <input type="text" class="form-control" placeholder="Nome">
+                                    <input type="text" class="form-control" placeholder="Nome" name="name" required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> Nome obrigatório, insira seu nome. </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Sexo</label>
-                                    <select class="form-control">
+                                    <select class="form-control" name="sex" required>
                                         <option value="M">Masculino</option>
                                         <option value="F">Feminino</option>
                                     </select>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> Sexo obrigatório, insira seu sexo. </div>
                                 </div>
                             </div>
                         </div>
@@ -40,19 +44,25 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Data de Nascimento:</label>
-                                    <input type="text" class="form-control" placeholder="Data de nascimento">
+                                    <input type="date" class="form-control" placeholder="Data de nascimento" name="date_birth" required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> Data de nascimento obrigatório, insira sua data de nascimento. </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>CPF:</label>
-                                    <input type="text" class="form-control" placeholder="CPF">
+                                    <input type="text" class="form-control" placeholder="CPF" name="cpf" data-mask="000.000.000-00" required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> CPF obrigatório, insira seu CPF. </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Celular:</label>
-                                    <input type="text" class="form-control" placeholder="Celular">
+                                    <input type="text" class="form-control" placeholder="Celular" name="cellphone" data-mask="(00) 00000-0000" required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> Celular obrigatório, insira seu celular. </div>
                                 </div>
                             </div>
                         </div>
@@ -60,13 +70,17 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>E-mail:</label>
-                                    <input type="email" class="form-control" placeholder="E-mail">
+                                    <input type="email" class="form-control" placeholder="E-mail" name="email" required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> E-mail obrigatório, insira seu e-mail. </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Cor:</label>
-                                    <input type="text" class="form-control" placeholder="Cor">
+                                    <input type="text" class="form-control" placeholder="Cor" name="color" required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> Cor obrigatória, insira sua cor. </div>
                                 </div>
                             </div>
                         </div>
@@ -74,25 +88,31 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>CEP</label>
-                                    <input type="text" class="form-control" placeholder="CEP">
+                                    <input type="text" id="cep" class="form-control" placeholder="CEP" name="cep" data-mask="00000-000" required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> CEP obrigatório, insira seu cep. </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Rua:</label>
-                                    <input type="text" class="form-control" placeholder="Rua">
+                                    <label>Endereço:</label>
+                                    <input type="text" id="logradouro" class="form-control" placeholder="Rua" name="street" readonly required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> Endereço obrigatório, insira seu endereço. </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Nº:</label>
-                                    <input type="text" class="form-control" placeholder="Número">
+                                    <input type="text" id="numero" class="form-control" name="number" placeholder="Número">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Bairro:</label>
-                                    <input type="text" class="form-control" placeholder="Bairro">
+                                    <input type="text" id="bairro" class="form-control" name="neighborhood" placeholder="Bairro" readonly required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> Bairro obrigatório, insira seu bairro. </div>
                                 </div>
                             </div>
                         </div>
@@ -100,25 +120,29 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Complemento:</label>
-                                    <input type="text" class="form-control" placeholder="Complemento">
+                                    <input type="text" class="form-control" name="complement" placeholder="Complemento">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Cidade:</label>
-                                    <input type="text" class="form-control" placeholder="Cidade">
+                                    <input type="text" id="localidade" class="form-control" placeholder="Cidade" name="city" readonly required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> Cidade obrigatório, insira sua cidade. </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Estado:</label>
-                                    <input type="text" class="form-control" placeholder="Estado">
+                                    <input type="text" id="uf" class="form-control" placeholder="Estado" name="state" readonly required>
+                                    <div class="valid-feedback"> Ok! </div>
+                                    <div class="invalid-feedback"> Estado obrigatório, insira seu estado. </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Convênio:</label>
-                                    <select class="form-control">
+                                    <select class="form-control" name="agreement">
                                         {% for agreement in agreements %}
                                             <option value="{{agreement.id}}">{{agreement.agreement}}</option>
                                         {% endfor %}
@@ -126,13 +150,15 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="{{ csrf.nameKey }}" value="{{ csrf.name }}">
+                        <input type="hidden" name="{{ csrf.valueKey }}" value="{{ csrf.value }}">
                         <button type="submit" class="btn btn-danger fa-pull-right">Cadastrar Usuário</button>
                     </form>
                 </div>
             </div>
-            </div>
         </div>
     </div>
-    {% block footer %}{% endblock %}
-    </div>
+</div>
+{% block footer %}{% endblock %}
+</div>
 {% endblock %}

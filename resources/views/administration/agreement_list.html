@@ -1,4 +1,4 @@
-{% extends "template/layout.twig" %}
+{% extends "template/layout.html" %}
 
 {% block title %}Lista de Convênios{% endblock %}
 
@@ -40,8 +40,8 @@
                                     <tr align="center">
                                         <td>{{ covenant.id }}</td>
                                         <td>{{ covenant.agreement }}</td>
-                                        <td>{{ covenant.created_at }}</td>
-                                        <td>{{ covenant.updated_at }}</td>
+                                        <td>{{ covenant.created_at|date("d/m/Y H:i") }}</td>
+                                        <td>{{ covenant.updated_at|date("d/m/Y H:i") }}</td>
                                         <td>
                                             <a class="btn btn-warning btn-circle btn-sm" href="/administration/agreement/edit/{{ covenant.id }}"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-danger btn-circle btn-sm" href="/administration/agreement/remove/{{ covenant.id }}"><i class="fas fa-times-circle"></i></a>

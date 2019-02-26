@@ -12,7 +12,8 @@ $app->get('/logout', '\App\Controllers\HomeController:logout')->setName('logout'
 
 //Pacientes
 $app->get('/patient/list', '\App\Controllers\PatientController:index')->add( new \App\Middleware\Middleware($container));
-$app->get('/patient/add', '\App\Controllers\PatientController:add')->add( new \App\Middleware\Middleware($container));
+$app->get('/patient/add', '\App\Controllers\PatientController:addPatient')->add( new \App\Middleware\Middleware($container))->setName('patient.add');
+$app->post('/patient/add', '\App\Controllers\PatientController:add');
 
 //Admnistração
 $app->get('/administration/agreement/list', '\App\Controllers\AdministrationController:index')->add( new \App\Middleware\Middleware($container));

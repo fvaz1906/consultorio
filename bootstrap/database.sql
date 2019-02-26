@@ -26,3 +26,28 @@ CREATE TABLE `walterritti`.`walt_agreement` (
     `updated_at` TIMESTAMP NULL DEFAULT NULL,
 PRIMARY KEY (`id`),
 UNIQUE INDEX `agreement_UNIQUE` (`agreement` ASC));
+
+CREATE TABLE `walterritti`.`walt_patient` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `sex` varchar(1) NOT NULL,
+    `date_birth` date NOT NULL,
+    `cpf` varchar(25) NOT NULL,
+    `cellphone` varchar(25) NOT NULL,
+    `email` varchar(255) NOT NULL,
+    `color` varchar(100) NOT NULL,
+    `cep` varchar(30) NOT NULL,
+    `street` varchar(255) NOT NULL,
+    `number` int(11) DEFAULT NULL,
+    `neighborhood` varchar(255) NOT NULL,
+    `complement` longtext,
+    `city` varchar(255) NOT NULL,
+    `state` varchar(5) NOT NULL,
+    `agreement` int(11) DEFAULT NULL,
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`agreement`) REFERENCES walt_agreement(`id`),
+UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC),
+UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+UNIQUE INDEX `cellphone_UNIQUE` (`cellphone` ASC))

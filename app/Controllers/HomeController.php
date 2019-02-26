@@ -8,7 +8,7 @@ class HomeController extends BaseController
 {
     public function index($request, $response)
     {
-        return $this->c->view->render($response, 'home.twig', [
+        return $this->c->view->render($response, 'home.html', [
             'name_user' => $_SESSION['USER'],
             'photo_user' => '/assets/images/default-avatar.jpg'
         ]);
