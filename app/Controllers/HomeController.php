@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use App\Models\Patient;
+use App\Models\Query;
 
 class HomeController extends BaseController
 {
@@ -10,7 +12,9 @@ class HomeController extends BaseController
     {
         return $this->c->view->render($response, 'home.html', [
             'name_user' => $_SESSION['USER'],
-            'photo_user' => '/assets/images/default-avatar.jpg'
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'number_patients' => Patient::all()->count(),
+            'number_querys' => Query::all()->count()
         ]);
     }
 
@@ -25,4 +29,5 @@ class HomeController extends BaseController
                 return $response->withRedirect('/auth/sign');
         endforeach;
     }
+
 }

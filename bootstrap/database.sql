@@ -50,4 +50,16 @@ PRIMARY KEY (`id`),
 FOREIGN KEY (`agreement`) REFERENCES walt_agreement(`id`),
 UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC),
 UNIQUE INDEX `email_UNIQUE` (`email` ASC),
-UNIQUE INDEX `cellphone_UNIQUE` (`cellphone` ASC))
+UNIQUE INDEX `cellphone_UNIQUE` (`cellphone` ASC));
+
+CREATE TABLE `walterritti`.`walt_query` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `patient` INT NOT NULL,
+    `user` INT NOT NULL,
+    `date_query` datetime NOT NULL,
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`patient`) REFERENCES walt_patient(`id`),
+FOREIGN KEY (`user`) REFERENCES walt_usuarios(`id`),
+UNIQUE INDEX `date_query_UNIQUE` (`date_query` ASC));

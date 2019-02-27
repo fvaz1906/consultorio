@@ -1,0 +1,66 @@
+{% extends "template/layout.html" %}
+
+{% block title %}Lista de Consultas{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/query/list">Consultas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lista de Consultas</li>
+                </ol>
+            </nav>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 class="m-1 font-weight-bold text-primary">Lista de Consultas</h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="btn btn-primary btn-circle btn-locale" href="/query/add"><i class="fas fa-calendar-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Médico</th>
+                                <th>Data da Consulta</th>
+                                <th>Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for query in querys %}
+                            <tr>
+                                {% for patient in patients %}
+                                    {% if patient.id == query.patient %}
+                                    <td>{{ patient.name }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                                {% for user in users %}
+                                    {% if user.id == query.user %}
+                                    <td>{{ user.name }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                                <td>{{ query.date_query|date("d/m/Y H:i") }}</td>
+                                <td>
+                                    <a class="btn btn-warning btn-circle btn-sm" href="/query/edit/{{query.id}}"><i class="fas fa-calendar-check"></i></a>
+                                    <a class="btn btn-danger btn-circle btn-sm" href="/query/remove/{{query.id}}"><i class="fas fa-calendar-minus"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block footer %}{% endblock %}
+</div>
+{% endblock %}

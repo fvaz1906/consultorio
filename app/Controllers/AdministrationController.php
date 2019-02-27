@@ -21,6 +21,21 @@ class AdministrationController extends BaseController
         return $this->c->view->render($response, 'administration/agreement_list.html', $data);
     }
 
+    public function editAgreement($request, $response, $args)
+    {
+        $guard = new Csrf;
+        $csrf = $guard->generateCsrf($request);
+
+        $data = [
+            'name_user' => $_SESSION['USER'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'csrf' => $csrf,
+            'agreement' => Agreement::find([$args['id']])
+        ];
+
+        return $this->c->view->render($response, 'administration/agreement_edit.html', $data);
+    }
+
     public function add($request, $response)
     {
         $guard = new Csrf;
@@ -50,25 +65,10 @@ class AdministrationController extends BaseController
         return $response->withRedirect('/administration/agreement/list');
     }
 
-    public function removeAgreement($request, $response, $args)
+    public function remove($request, $response, $args)
     {
         Agreement::destroy([$args['id']]);
         return $response->withRedirect('/administration/agreement/list');
-    }
-
-    public function editAgreement($request, $response, $args)
-    {
-        $guard = new Csrf;
-        $csrf = $guard->generateCsrf($request);
-
-        $data = [
-            'name_user' => $_SESSION['USER'],
-            'photo_user' => '/assets/images/default-avatar.jpg',
-            'csrf' => $csrf,
-            'agreement' => Agreement::find([$args['id']])
-        ];
-
-        return $this->c->view->render($response, 'administration/agreement_edit.html', $data);
     }
 
 }
