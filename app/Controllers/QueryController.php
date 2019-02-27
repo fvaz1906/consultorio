@@ -55,18 +55,11 @@ class QueryController extends BaseController
 
     public function markedQuerys()
     {
-        $marked_querys = Query::all();
-        $schedule = [];
-        foreach ($marked_querys as $q):
-            $schedule['id'] = $q->id;
-            $schedule['title'] = 'Consulta Marcada';
-            $schedule['start'] = $q->date_query;
-        endforeach;
-        #print_r($schedule);
-        #echo '<br><br>';
-        #echo json_encode($schedule);
-        #die;
-        return json_encode($schedule);
+        $marked_querys = Query::select('walt_query.id','walt_patient.name', 'walt_query.date_query')
+                                ->join('walt_patient', 'walt_query.patient', '=', 'walt_patient.id')
+                                ->join('walt_usuarios', 'walt_query.user', '=', 'walt_usuarios.id')
+                                ->get();
+        return $marked_querys->toJson(JSON_PRETTY_PRINT);
     }
 
 }

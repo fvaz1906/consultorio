@@ -11,4 +11,8 @@ class Query extends Model
     protected $fillable = [
         'patient', 'user', 'date_query'
     ];
+    public function relationPatient()
+    {
+        return $this->hasMany('App\Models\Patient', 'id');
+    }
 }
