@@ -31,3 +31,7 @@ $app->get('/query/list', '\App\Controllers\QueryController:index')->add( new \Ap
 $app->get('/query/markedquerys', '\App\Controllers\QueryController:markedQuerys');
 $app->get('/query/add', '\App\Controllers\QueryController:queryAdd')->add( new \App\Middleware\Middleware($container))->setName('query.add');
 $app->post('/query/add', '\App\Controllers\QueryController:add')->add( new \App\Middleware\Middleware($container));
+
+//Financeiro
+$app->get('/finances/cashier', '\App\Controllers\FinancesController:index')->add( new \App\Middleware\Middleware($container));
+$app->post('/finances/add', '\App\Controllers\FinancesController:add')->add( new \App\Middleware\Middleware($container));

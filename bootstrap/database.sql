@@ -63,3 +63,13 @@ PRIMARY KEY (`id`),
 FOREIGN KEY (`patient`) REFERENCES walt_patient(`id`),
 FOREIGN KEY (`user`) REFERENCES walt_usuarios(`id`),
 UNIQUE INDEX `date_query_UNIQUE` (`date_query` ASC));
+
+CREATE TABLE `walterritti`.`walt_finances` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `cpf` varchar(25) NOT NULL,
+    `value` decimal(19,4) NOT NULL,
+    `description` longtext,
+    `type_movement` tinyint NOT NULL,
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+PRIMARY KEY (`id`));
