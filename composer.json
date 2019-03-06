@@ -5,7 +5,8 @@
         "illuminate/database": "^5.3",
         "monolog/monolog": "^1.24",
         "slim/csrf": "^0.8.3",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "mpdf/mpdf": "^7.1"
     },
     "autoload" : {
         "psr-4" : {

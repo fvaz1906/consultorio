@@ -9,6 +9,6 @@ class Finances extends Model
     protected $table = "walt_finances";
     public $timestamps = true;
     protected $fillable = [
-        'cpf', 'value', 'description', 'type_movement'
+        'cpf', 'value', 'description', 'type_movement', 'active'
     ];
 }

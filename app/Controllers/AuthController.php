@@ -20,7 +20,7 @@ class AuthController extends BaseController
     {
         User::create([
             'email' => $request->getParam('email'),
-            'perfil' => 4,
+            'perfil' => 1,
             'name' => $request->getParam('name'),
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
         ]);

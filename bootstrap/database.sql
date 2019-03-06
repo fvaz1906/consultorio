@@ -70,6 +70,18 @@ CREATE TABLE `walterritti`.`walt_finances` (
     `value` decimal(19,4) NOT NULL,
     `description` longtext,
     `type_movement` tinyint NOT NULL,
+    `active` tinyint NOT NULL,
     `created_at` TIMESTAMP NULL DEFAULT NULL,
     `updated_at` TIMESTAMP NULL DEFAULT NULL,
 PRIMARY KEY (`id`));
+
+CREATE TABLE `walterritti`.`walt_receipts` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `finances_id` INT NOT NULL,
+    `cpf` varchar(25) NOT NULL,
+    `value` decimal(19,4) NOT NULL,
+    `description` longtext,
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`finances_id`) REFERENCES walt_finances(`id`));
