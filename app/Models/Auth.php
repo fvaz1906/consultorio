@@ -38,6 +38,7 @@ class Auth
         $data->save();
         $_SESSION['TOKEN'] = $this->getToken();
         $_SESSION['USER'] = $data->email;
+        $_SESSION['PERFIL'] = $data->perfil;
     }
 
     public function returnAuthentication()

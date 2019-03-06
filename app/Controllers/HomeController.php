@@ -7,6 +7,12 @@ use App\Models\Patient;
 use App\Models\Query;
 use App\Models\Finances;
 
+/**
+ *     [TOKEN] => 098d41baa6906f381c9c357125010ce0
+ *     [USER] => prfelipevaz@gmail.com
+ *     [PERFIL] => 1
+ */
+
 class HomeController extends BaseController
 {
     public function index($request, $response)

@@ -9,3 +9,7 @@
 .fc-content {
 	color: #FFF;
 }
+
+.sidebar.toggled .nav-item .collapse {
+	z-index: 999;
+}
