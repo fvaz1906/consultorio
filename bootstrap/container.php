@@ -16,6 +16,7 @@ $container['view'] = function ($container) {
 
 $capsule = new \Illuminate\Database\Capsule\Manager;
 $capsule->addConnection($container['settings']['db']);
+$capsule->addConnection($container['settings']['db2'], 'db2');
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 

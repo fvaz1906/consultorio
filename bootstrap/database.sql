@@ -85,3 +85,11 @@ CREATE TABLE `walterritti`.`walt_receipts` (
     `updated_at` TIMESTAMP NULL DEFAULT NULL,
 PRIMARY KEY (`id`),
 FOREIGN KEY (`finances_id`) REFERENCES walt_finances(`id`));
+
+CREATE TABLE `walterritti`.`walt_cid` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `code` varchar(50) NOT NULL,
+    `description` longtext,
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+PRIMARY KEY (`id`));

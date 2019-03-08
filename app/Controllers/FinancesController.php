@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\Csrf;
 use App\Models\Finances;
 use App\Models\Receipts;
+use App\Models\Cid;
+use App\Models\Cid02;
 use \Mpdf\Mpdf;
 
 class FinancesController extends BaseController
@@ -143,6 +145,16 @@ class FinancesController extends BaseController
             ");
         endforeach;
         $mpdf->Output();
+        die;
+    }
+
+    public function DocsCid($request, $response)
+    {
+        $cid = Cid02::select('codigo', 'descricao')->get();
+        foreach ($cid as $c) :
+            Cid::create([ 'code' => $c->codigo, 'description' => $c->descricao ]);
+        endforeach;
+        echo 'ok!';
         die;
     }
 

@@ -26,6 +26,8 @@ $app->get('/administration/agreement/edit/{id}', '\App\Controllers\Administratio
 $app->post('/administration/agreement/edit', '\App\Controllers\AdministrationController:edit')->add( new \App\Middleware\Middleware($container))->setName('administration.agreement.edit');
 $app->get('/administration/agreement/remove/{id}', '\App\Controllers\AdministrationController:remove')->add( new \App\Middleware\Middleware($container));
 
+$app->get('/administration/cid/list', '\App\Controllers\AdministrationController:index')->add( new \App\Middleware\Middleware($container));
+
 //Consultas
 $app->get('/query/list', '\App\Controllers\QueryController:index')->add( new \App\Middleware\Middleware($container));
 $app->get('/query/markedquerys', '\App\Controllers\QueryController:markedQuerys');
@@ -37,5 +39,5 @@ $app->get('/finances/{type}', '\App\Controllers\FinancesController:index')->add(
 $app->post('/finances/add', '\App\Controllers\FinancesController:add')->add( new \App\Middleware\Middleware($container));
 $app->get('/finances/print/{id}', '\App\Controllers\FinancesController:print')->add( new \App\Middleware\Middleware($container));
 $app->get('/finances/remove/{id}', '\App\Controllers\FinancesController:remove')->add( new \App\Middleware\Middleware($container));
-$app->get('/finances/receipts/', '\App\Controllers\FinancesController:listReceipts')->add( new \App\Middleware\Middleware($container));
-$app->get('/finances/printReceipt/{id}', '\App\Controllers\FinancesController:printReceipt')->add( new \App\Middleware\Middleware($container));
+
+#$app->get('/docs/cid', '\App\Controllers\FinancesController:DocsCid')->add( new \App\Middleware\Middleware($container));
