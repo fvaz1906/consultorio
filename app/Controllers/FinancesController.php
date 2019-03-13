@@ -148,14 +148,4 @@ class FinancesController extends BaseController
         die;
     }
 
-    public function DocsCid($request, $response)
-    {
-        $cid = Cid02::select('codigo', 'descricao')->get();
-        foreach ($cid as $c) :
-            Cid::create([ 'code' => $c->codigo, 'description' => $c->descricao ]);
-        endforeach;
-        echo 'ok!';
-        die;
-    }
-
 }
