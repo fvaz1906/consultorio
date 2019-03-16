@@ -38,4 +38,6 @@ $app->post('/query/add', '\App\Controllers\QueryController:add')->add( new \App\
 $app->get('/finances/{type}', '\App\Controllers\FinancesController:index')->add( new \App\Middleware\Middleware($container));
 $app->post('/finances/add', '\App\Controllers\FinancesController:add')->add( new \App\Middleware\Middleware($container));
 $app->get('/finances/print/{id}', '\App\Controllers\FinancesController:print')->add( new \App\Middleware\Middleware($container));
+$app->get('/finances/printReceipt/{id}', '\App\Controllers\FinancesController:print')->add( new \App\Middleware\Middleware($container));
 $app->get('/finances/remove/{id}', '\App\Controllers\FinancesController:remove')->add( new \App\Middleware\Middleware($container));
+$app->get('/finances/receipts/', '\App\Controllers\FinancesController:listReceipts')->add( new \App\Middleware\Middleware($container));

@@ -4,7 +4,7 @@ $container = $app->getContainer();
 
 //Container untuk View
 $container['view'] = function ($container) {
-    $view = new \Slim\Views\Twig( __DIR__ . '/../resources/views', [
+    $view = new \Slim\Views\Twig( __DIR__ . '/../views', [
         'cache' => false
     ]);
     // Instantiate and add Slim specific extension
