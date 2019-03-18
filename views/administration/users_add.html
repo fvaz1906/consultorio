@@ -1,0 +1,76 @@
+{% extends "template/layout.html" %}
+
+{% block title %}Cadastro de Usuários{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/administration/users/list">Usuários</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cadastro de Usuários</li>
+                </ol>
+            </nav>
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">Cadastro de Usuários</h3>
+                </div>
+                <div class="card-body">
+                    <form class="needs-validation" action="{{ path_for('administration.users.add') }}" method="POST" autocomplete="off" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nome:</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Nome" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail:</label>
+                                    <input type="email" name="email" class="form-control" placeholder="E-mail" required>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="perfil" class="form-check-input" id="medico" value="1" checked="">
+                                    <label class="form-check-label">Médico</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="perfil" class="form-check-input" id="colaborador" value="2" checked="checked">
+                                    <label class="form-check-label">Colaborador</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Senha:</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" name="password" class="form-control" id="eye" placeholder="Password" required>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-danger" id="eye-button" type="button"><i class="fas fa-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Celular:</label>
+                                    <input type="text" name="celular" class="form-control" placeholder="Celular" data-mask="(00) 00000-0000" required>
+                                </div>
+                                <div class="form-group" id="cpf_hide">
+                                    <label id="label-form">CPF:</label>
+                                    <input type="text" name="crm_cpf_1" id="cpf" class="form-control" placeholder="CPF" data-mask="000.000.000-00" required>
+                                </div>
+                                <div class="form-group" id="crm_hide">
+                                    <label id="label-form">CRM:</label>
+                                    <input type="text" name="crm_cpf_2" id="crm" class="form-control" placeholder="CRM" data-mask="00000-AA">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="{{ csrf.nameKey }}" value="{{ csrf.name }}">
+                        <input type="hidden" name="{{ csrf.valueKey }}" value="{{ csrf.value }}">
+                        <button type="submit" class="btn btn-danger fa-pull-right">Cadastrar Usuário</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block footer %}{% endblock %}
+</div>
+{% endblock %}

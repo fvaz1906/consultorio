@@ -11,7 +11,7 @@ class PatientController extends BaseController
     public function index($request, $response)
     {
         $data = [
-            'name_user' => $_SESSION['USER'],
+            'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'patients' => Patient::all(),
             'agreements' => Agreement::all()
@@ -26,7 +26,7 @@ class PatientController extends BaseController
         $csrf = $guard->generateCsrf($request);
 
         $data = [
-            'name_user' => $_SESSION['USER'],
+            'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'agreements' => Agreement::all(),
             'csrf' => $csrf
@@ -41,7 +41,7 @@ class PatientController extends BaseController
         $csrf = $guard->generateCsrf($request);
 
         $data = [
-            'name_user' => $_SESSION['USER'],
+            'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'csrf' => $csrf,
             'patients' => Patient::find([$args['id']]),

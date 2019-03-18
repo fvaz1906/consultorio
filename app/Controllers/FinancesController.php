@@ -22,7 +22,7 @@ class FinancesController extends BaseController
             $finances = Finances::whereMonth('created_at', '=', date('m'))->get();
         endif;
         return $this->c->view->render($response, 'finances/finances_cashier.html', [
-            'name_user' => $_SESSION['USER'],
+            'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'csrf' => $csrf,
             'finances' => $finances,
@@ -56,7 +56,7 @@ class FinancesController extends BaseController
     public function print($request, $response, $args)
     {
         $printFinances = Finances::find($args['id']);
-        self::savePdf($printFinances);
+        #self::savePdf($printFinances);
         self::generatePdf($printFinances);
     }
 
@@ -78,27 +78,9 @@ class FinancesController extends BaseController
             'format' => [120, 190],
             'orientation' => 'L'
         ]);
-        $mpdf->SetHeader('Walterritti - Consultório Médico||Recibo de Pagamento');
-        $mpdf->SetFooter('CNPJ: 11.111.111/0001-11, Rua teste teste nº 111, Bairro: Teste - Fortaleza/CE');
-        $mpdf->WriteHTML("
-            <htm>
-                <head>
-                    <title>Recibo de Pagamento</title>
-                    <style>
-                        body {
-                            font-size: 18px;
-                            line-height: 2em;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <br>
-                    Recebemos de ..................................................................... inscrito no CPF: " . $datas->cpf . ", a quantia de R$ " . number_format($datas->value, '2',',','') . " (........................................), correspondente a(o) <b>" . $datas->description . "</b> , e para clareza firmo(amos) o presente na cidade de .................................... no dia " . date('d') . " de " . ucfirst(strftime('%B')) . " de " . date('Y') . ".
-                    <br><br>
-                    <p>Assinatura: ....................................................</p>
-                </body>
-            </html>
-        ");
+        $mpdf->SetHeader("Walterritti - Consultório Médico||Recibo de Pagamento");
+        $mpdf->SetFooter("CNPJ: 11.111.111/0001-11, Rua teste teste nº 111, Bairro: Teste - Fortaleza/CE");
+        $mpdf->WriteHTML("<html><head><title>Recibo de Pagamento</title><style>body { font-size: 18px; line-height: 2em; }</style></head><body><br>Recebemos de ..................................................................... inscrito no CPF: " . $datas->cpf . ", a quantia de R$ " . number_format($datas->value, '2',',','') . " (........................................), correspondente a(o) <b>" . $datas->description . "</b> , e para clareza firmo(amos) o presente na cidade de .................................... no dia " . date('d') . " de " . utf8_encode(ucfirst(strftime('%B'))) . " de " . date('Y') . ".<br><br><p>Assinatura: ....................................................</p></body></html>");
         $mpdf->Output();
         die;
     }
@@ -106,7 +88,7 @@ class FinancesController extends BaseController
     public function listReceipts($request, $response)
     {
         return $this->c->view->render($response, 'finances/list_receipts.html', [
-            'name_user' => $_SESSION['USER'],
+            'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'receipts' => Receipts::all()
         ]);
@@ -124,25 +106,7 @@ class FinancesController extends BaseController
         $mpdf->SetHeader('Walterritti - Consultório Médico||Recibo de Pagamento');
         $mpdf->SetFooter('CNPJ: 11.111.111/0001-11, Rua teste teste nº 111, Bairro: Teste - Fortaleza/CE');
         foreach ($receipts as $receipt) :
-            $mpdf->WriteHTML("
-                <htm>
-                    <head>
-                        <title>Recibo de Pagamento</title>
-                        <style>
-                            body {
-                                font-size: 18px;
-                                line-height: 2em;
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <br>
-                        Recebemos de ..................................................................... inscrito no CPF: " . $receipt->cpf . ", a quantia de R$ " . number_format($receipt->value, '2',',','') . " (........................................), correspondente a(o) <b>" . $receipt->description . "</b> , e para clareza firmo(amos) o presente na cidade de .................................... no dia " . date('d') . " de " . ucfirst(strftime('%B')) . " de " . date('Y') . ".
-                        <br><br>
-                        <p>Assinatura: ....................................................</p>
-                    </body>
-                </html>
-            ");
+            $mpdf->WriteHTML("<html><head><title>Recibo de Pagamento</title><style>body { font-size: 18px; line-height: 2em; }</style></head><body><br>Recebemos de ..................................................................... inscrito no CPF: " . $datas->cpf . ", a quantia de R$ " . number_format($datas->value, '2',',','') . " (........................................), correspondente a(o) <b>" . $datas->description . "</b> , e para clareza firmo(amos) o presente na cidade de .................................... no dia " . date('d') . " de " . utf8_encode(ucfirst(strftime('%B'))) . " de " . date('Y') . ".<br><br><p>Assinatura: ....................................................</p></body></html>");
         endforeach;
         $mpdf->Output();
         die;

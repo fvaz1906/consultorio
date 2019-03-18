@@ -35,10 +35,14 @@ class Auth
     public function authentication($data)
     {
         $data->token = $this->getToken();
-        $data->save();
-        $_SESSION['TOKEN'] = $this->getToken();
-        $_SESSION['USER'] = $data->email;
-        $_SESSION['PERFIL'] = $data->perfil;
+        if($data->save()):
+            $_SESSION['TOKEN'] = $this->getToken();
+            $_SESSION['USER'] = $data->email;
+            $_SESSION['PERFIL'] = $data->perfil;
+            $_SESSION['CRM_CPF'] = $data->crm_cpf;
+            $name = explode(' ', $data->name);
+            $_SESSION['NAME'] = 'Dr(a). '. $name[0] . ' ' . $name[count($name)-1];
+        endif;
     }
 
     public function returnAuthentication()

@@ -26,7 +26,7 @@ $(document).ready(function() {
         },
         events: function(start, end, timezone, callback) {
             $.ajax({
-                url: 'http://dev.consultorio.com/query/markedquerys',
+                url: 'http://walterritti.infovaz.com/query/markedquerys',
                 dataType: 'json',
                 success: function(doc) {
                     var events = [];

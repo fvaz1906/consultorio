@@ -12,7 +12,7 @@ class QueryController extends BaseController
     public function index($request, $response)
     {
         $data = [
-            'name_user' => $_SESSION['USER'],
+            'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'querys' => Query::all(),
             'patients' => Patient::all(),
@@ -26,15 +26,13 @@ class QueryController extends BaseController
     {
         $guard = new Csrf;
         $csrf = $guard->generateCsrf($request);
-
         $medicos = User::all();
         $data = [
-            'name_user' => $_SESSION['USER'],
+            'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'medicos' => $medicos,
             'csrf' => $csrf
         ];
-
         return $this->c->view->render($response, 'query/query_add.html', $data);
     }
 
@@ -51,6 +49,35 @@ class QueryController extends BaseController
         else:
             return $response->withRedirect('/query/add');
         endif;
+    }
+
+    public function editQuery($request, $response, $args)
+    {
+        $guard = new Csrf;
+        $csrf = $guard->generateCsrf($request);
+        $medicos = User::all();
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'csrf' => $csrf,
+            'querys' => Query::find([$args['id']]),
+            'medicos' => $medicos,
+        ];
+        return $this->c->view->render($response, 'query/query_edit.html', $data);
+    }
+
+    public function editPostQuery($request, $response)
+    {
+        Query::where('id', $request->getParam('user_id'))
+            ->update([
+                'name' => ucwords(strtolower($request->getParam('name'))),
+                'email' => strtolower($request->getParam('email')),
+                'perfil' => $request->getParam('perfil'),
+                'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
+                'celular' => str_replace(' ','', str_replace('(','', str_replace(')','', str_replace('-','', $request->getParam('celular'))))),
+                'crm_cpf' => $crm_cpf,
+                'token' => null
+            ]);
     }
 
     public function markedQuerys()

@@ -11,6 +11,6 @@ class User extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'email', 'perfil', 'name', 'password', 'token'
+        'perfil', 'name', 'crm_cpf', 'email', 'celular', 'password', 'token'
     ];
 }

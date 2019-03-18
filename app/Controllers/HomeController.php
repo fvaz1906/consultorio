@@ -27,7 +27,7 @@ class HomeController extends BaseController
             $financeValue -= $s->value;
         endforeach;
         return $this->c->view->render($response, 'home.html', [
-            'name_user' => $_SESSION['USER'],
+            'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'number_patients' => Patient::all()->count(),
             'number_querys' => Query::all()->count(),
@@ -42,7 +42,7 @@ class HomeController extends BaseController
                 $item->token = null;
                 $item->save();
                 unset($_SESSION['TOKEN']);
-                unset($_SESSION['USER']);
+                unset($_SESSION['NAME']);
                 return $response->withRedirect('/auth/sign');
         endforeach;
     }

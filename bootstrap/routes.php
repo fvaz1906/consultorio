@@ -25,17 +25,26 @@ $app->post('/administration/agreement/add', '\App\Controllers\AdministrationCont
 $app->get('/administration/agreement/edit/{id}', '\App\Controllers\AdministrationController:editAgreement')->add( new \App\Middleware\Middleware($container));
 $app->post('/administration/agreement/edit', '\App\Controllers\AdministrationController:edit')->add( new \App\Middleware\Middleware($container))->setName('administration.agreement.edit');
 $app->get('/administration/agreement/remove/{id}', '\App\Controllers\AdministrationController:remove')->add( new \App\Middleware\Middleware($container));
-
 $app->get('/administration/cid/list', '\App\Controllers\AdministrationController:index')->add( new \App\Middleware\Middleware($container));
+$app->get('/administration/users/list', '\App\Controllers\AdministrationController:listUsers')->add( new \App\Middleware\Middleware($container));
+$app->get('/administration/users/add', '\App\Controllers\AdministrationController:addUsers')->add( new \App\Middleware\Middleware($container))->setName('administration.users.add');
+$app->get('/administration/users/edit/{id}', '\App\Controllers\AdministrationController:editUsers')->add( new \App\Middleware\Middleware($container));
+$app->post('/administration/users/edit', '\App\Controllers\AdministrationController:postEditUser')->add( new \App\Middleware\Middleware($container));
+$app->post('/administration/users/add', '\App\Controllers\AdministrationController:postUsers')->add( new \App\Middleware\Middleware($container));
+$app->get('/administration/users/remove/{id}', '\App\Controllers\AdministrationController:removeUsers')->add( new \App\Middleware\Middleware($container));
 
 //Consultas
 $app->get('/query/list', '\App\Controllers\QueryController:index')->add( new \App\Middleware\Middleware($container));
 $app->get('/query/markedquerys', '\App\Controllers\QueryController:markedQuerys');
 $app->get('/query/add', '\App\Controllers\QueryController:queryAdd')->add( new \App\Middleware\Middleware($container))->setName('query.add');
+$app->get('/query/edit/{id}', '\App\Controllers\QueryController:editQuery')->add( new \App\Middleware\Middleware($container));
+$app->post('/query/edit', '\App\Controllers\QueryController:editPostQuery')->add( new \App\Middleware\Middleware($container));
 $app->post('/query/add', '\App\Controllers\QueryController:add')->add( new \App\Middleware\Middleware($container));
 
 //Financeiro
 $app->get('/finances/{type}', '\App\Controllers\FinancesController:index')->add( new \App\Middleware\Middleware($container));
 $app->post('/finances/add', '\App\Controllers\FinancesController:add')->add( new \App\Middleware\Middleware($container));
 $app->get('/finances/print/{id}', '\App\Controllers\FinancesController:print')->add( new \App\Middleware\Middleware($container));
+$app->get('/finances/printReceipt/{id}', '\App\Controllers\FinancesController:print')->add( new \App\Middleware\Middleware($container));
 $app->get('/finances/remove/{id}', '\App\Controllers\FinancesController:remove')->add( new \App\Middleware\Middleware($container));
+$app->get('/finances/receipts/', '\App\Controllers\FinancesController:listReceipts')->add( new \App\Middleware\Middleware($container));
