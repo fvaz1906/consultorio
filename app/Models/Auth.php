@@ -41,7 +41,11 @@ class Auth
             $_SESSION['PERFIL'] = $data->perfil;
             $_SESSION['CRM_CPF'] = $data->crm_cpf;
             $name = explode(' ', $data->name);
-            $_SESSION['NAME'] = 'Dr(a). '. $name[0] . ' ' . $name[count($name)-1];
+            if ($data->perfil == 1):
+                $_SESSION['NAME'] = 'Dr(a). '. $name[0] . ' ' . $name[count($name)-1];
+            else:
+                $_SESSION['NAME'] = 'Col(a). '. $name[0] . ' ' . $name[count($name)-1];
+            endif;
         endif;
     }
 

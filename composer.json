@@ -5,7 +5,8 @@
         "illuminate/database": "^5.3",
         "monolog/monolog": "^1.24",
         "slim/csrf": "^0.8.3",
-        "mpdf/mpdf": "^7.1"
+        "mpdf/mpdf": "^7.1",
+        "respect/validation": "^1.1"
     },
     "autoload" : {
         "psr-4" : {

@@ -3,8 +3,8 @@
 //Autenticação
 $app->get('/auth/sign', '\App\Controllers\AuthController:getSign')->setName('auth.sign');
 $app->post('/auth/sign', '\App\Controllers\AuthController:postSign');
-$app->get('/auth/signup', '\App\Controllers\AuthController:getSignUp')->setName('auth.signup');
-$app->post('/auth/signup', '\App\Controllers\AuthController:postSignUp');
+#$app->get('/auth/signup', '\App\Controllers\AuthController:getSignUp')->setName('auth.signup');
+#$app->post('/auth/signup', '\App\Controllers\AuthController:postSignUp');
 
 //Home
 $app->get('/', '\App\Controllers\HomeController:index')->add( new \App\Middleware\Middleware($container));
@@ -37,9 +37,10 @@ $app->get('/administration/users/remove/{id}', '\App\Controllers\AdministrationC
 $app->get('/query/list', '\App\Controllers\QueryController:index')->add( new \App\Middleware\Middleware($container));
 $app->get('/query/markedquerys', '\App\Controllers\QueryController:markedQuerys');
 $app->get('/query/add', '\App\Controllers\QueryController:queryAdd')->add( new \App\Middleware\Middleware($container))->setName('query.add');
+$app->post('/query/add', '\App\Controllers\QueryController:add')->add( new \App\Middleware\Middleware($container));
 $app->get('/query/edit/{id}', '\App\Controllers\QueryController:editQuery')->add( new \App\Middleware\Middleware($container));
 $app->post('/query/edit', '\App\Controllers\QueryController:editPostQuery')->add( new \App\Middleware\Middleware($container));
-$app->post('/query/add', '\App\Controllers\QueryController:add')->add( new \App\Middleware\Middleware($container));
+$app->get('/query/remove/{id}', '\App\Controllers\QueryController:remove')->add( new \App\Middleware\Middleware($container));
 
 //Financeiro
 $app->get('/finances/{type}', '\App\Controllers\FinancesController:index')->add( new \App\Middleware\Middleware($container));

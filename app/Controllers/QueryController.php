@@ -6,6 +6,7 @@ use App\Models\Csrf;
 use App\Models\User;
 use App\Models\Patient;
 use App\Models\Query;
+use Respect\Validation\Validator;
 
 class QueryController extends BaseController
 {
@@ -38,12 +39,15 @@ class QueryController extends BaseController
 
     public function add($request, $response)
     {
+        $date = explode('/', $request->getParam('date_query'));
+        $datePart = explode(' ', $date[2]);
+        $data = $datePart[0] . '-' . $date[1] . '-' . $date[0] . ' ' . $datePart[1] . ':00';
         $paciente = Patient::where('cpf', str_replace('.','', str_replace('-','', $request->getParam('cpf'))))->first();
         if ($paciente->id):
             Query::create([
                 'patient' => $paciente->id,
                 'user' => $request->getParam('user'),
-                'date_query' => $request->getParam('date_query')
+                'date_query' => $data
             ]);
             return $response->withRedirect('/query/list');
         else:
@@ -55,29 +59,34 @@ class QueryController extends BaseController
     {
         $guard = new Csrf;
         $csrf = $guard->generateCsrf($request);
-        $medicos = User::all();
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'csrf' => $csrf,
-            'querys' => Query::find([$args['id']]),
-            'medicos' => $medicos,
+            'querys' => Query::select('walt_query.id', 'walt_patient.cpf')->where('walt_query.id', '=', $args['id'])->join('walt_patient', 'walt_query.patient', '=', 'walt_patient.id')->get(),
+            'medicos' => User::all(),
         ];
         return $this->c->view->render($response, 'query/query_edit.html', $data);
     }
 
     public function editPostQuery($request, $response)
     {
-        Query::where('id', $request->getParam('user_id'))
-            ->update([
-                'name' => ucwords(strtolower($request->getParam('name'))),
-                'email' => strtolower($request->getParam('email')),
-                'perfil' => $request->getParam('perfil'),
-                'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
-                'celular' => str_replace(' ','', str_replace('(','', str_replace(')','', str_replace('-','', $request->getParam('celular'))))),
-                'crm_cpf' => $crm_cpf,
-                'token' => null
-            ]);
+        $date = explode('/', $request->getParam('date_query'));
+        $datePart = explode(' ', $date[2]);
+        $data = $datePart[0] . '-' . $date[1] . '-' . $date[0] . ' ' . $datePart[1] . ':00';
+        $paciente = Patient::where('cpf', str_replace('.','', str_replace('-','', $request->getParam('cpf'))))->first();
+        Query::where('id', $request->getParam('query_id'))->update([
+            'patient' => $paciente->id,
+            'user' => $request->getParam('user'),
+            'date_query' => $data
+        ]);
+        return $response->withRedirect('/query/list');
+    }
+
+    public function remove($request, $response, $args)
+    {
+        Query::destroy([$args['id']]);
+        return $response->withRedirect('/query/list');
     }
 
     public function markedQuerys()
