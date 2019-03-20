@@ -1,0 +1,66 @@
+{% extends "template/layout.html" %}
+
+{% block title %}Edição de Exames{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/administration/exam/list">Exames</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edição de Exames</li>
+                </ol>
+            </nav>
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">Edição de Exames</h3>
+                </div>
+                <div class="card-body">
+                    {% for exam in exams %}
+                    <form class="needs-validation" action="/administration/exam/edit" method="POST" autocomplete="off" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nome do Exame:</label>
+                                    <input type="text" name="exam" class="form-control" placeholder="Exame" value="{{ exam.exam }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Material:</label>
+                                    <input type="text" name="material" class="form-control" placeholder="Material" value="{{ exam.material }}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Valores Normais:</label>
+                                    <input type="text" name="normal_values" class="form-control" placeholder="Valores Normais" value="{{ exam.normal_values }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Descrição:</label>
+                                    <textarea name="description" class="form-control" rows="8" placeholder="Descrição">{{ exam.description }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="exam_id" value="{{ exam.id }}">
+                        <input type="hidden" name="{{ csrf.nameKey }}" value="{{ csrf.name }}">
+                        <input type="hidden" name="{{ csrf.valueKey }}" value="{{ csrf.value }}">
+                        <button type="submit" class="btn btn-danger fa-pull-right">Editar Exame</button>
+                    </form>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block footer %}{% endblock %}
+</div>
+{% endblock %}

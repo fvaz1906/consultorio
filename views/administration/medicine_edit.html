@@ -1,0 +1,58 @@
+{% extends "template/layout.html" %}
+
+{% block title %}Edição de Medicamentos{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/administration/medicine/list">Medicamentos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edição de Medicamentos</li>
+                </ol>
+            </nav>
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">Edição de Medicamentos</h3>
+                </div>
+                <div class="card-body">
+                    {% for medicine in medicines %}
+                    <form class="needs-validation" action="/administration/medicine/edit" method="POST" autocomplete="off" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Medicamento:</label>
+                                    <input type="text" name="medicine" class="form-control" placeholder="Medicamento" value="{{ medicine.medicine }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Princípio Ativo:</label>
+                                    <input type="text" name="active_principle" class="form-control" placeholder="Princípio Ativo" value="{{ medicine.active_principle }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Concentração:</label>
+                                    <input type="text" name="concentration" class="form-control" placeholder="Concentração" value="{{ medicine.concentration }}">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="medicine_id" value="{{ medicine.id }}">
+                        <input type="hidden" name="{{ csrf.nameKey }}" value="{{ csrf.name }}">
+                        <input type="hidden" name="{{ csrf.valueKey }}" value="{{ csrf.value }}">
+                        <button type="submit" class="btn btn-danger fa-pull-right">Editar Medicamento</button>
+                    </form>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block footer %}{% endblock %}
+</div>
+{% endblock %}

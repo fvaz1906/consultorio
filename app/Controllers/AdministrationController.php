@@ -5,16 +5,18 @@ namespace App\Controllers;
 use App\Models\Agreement;
 use App\Models\Csrf;
 use App\Models\User;
+use App\Models\Cid;
+use App\Models\Exam;
+use App\Models\Medicine;
 
 class AdministrationController extends BaseController
 {
     public function index($request, $response)
     {
-        $covenants = Agreement::all();
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
-            'covenants' => $covenants
+            'covenants' => Agreement::all()
         ];
         return $this->c->view->render($response, 'administration/agreement_list.html', $data);
     }
@@ -113,7 +115,7 @@ class AdministrationController extends BaseController
         $guard = new Csrf;
         $csrf = $guard->generateCsrf($request);
         $data = [
-            'name_user' => $_SESSION['USER'],
+            'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'csrf' => $csrf
         ];
@@ -144,6 +146,142 @@ class AdministrationController extends BaseController
     {
         User::destroy([$args['id']]);
         return $response->withRedirect('/administration/users/list');
+    }
+
+    public function listCid($request, $response)
+    {
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'cids' => Cid::all()
+        ];
+        return $this->c->view->render($response, 'administration/cid_list.html', $data);
+    }
+
+    public function listExam($request, $response)
+    {
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'exams' => Exam::all()
+        ];
+        return $this->c->view->render($response, 'administration/exam_list.html', $data);
+    }
+
+    public function addExam($request, $response)
+    {
+        $guard = new Csrf;
+        $csrf = $guard->generateCsrf($request);
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'csrf' => $csrf
+        ];
+        return $this->c->view->render($response, 'administration/exam_add.html', $data);
+    }
+
+    public function postAddExam($request, $response)
+    {
+        Exam::create([
+            'exam' => ucwords(strtolower($request->getParam('exam'))),
+            'material' => $request->getParam('material'),
+            'normal_values' => $request->getParam('normal_values'),
+            'description' => $request->getParam('description')
+        ]);
+        return $response->withRedirect('/administration/exam/list');
+    }
+
+    public function editExam($request, $response, $args)
+    {
+        $guard = new Csrf;
+        $csrf = $guard->generateCsrf($request);
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'csrf' => $csrf,
+            'exams' => Exam::find([$args['id']])
+        ];
+        return $this->c->view->render($response, 'administration/exam_edit.html', $data);
+    }
+
+    public function postEditExam($request, $response)
+    {
+        Exam::where('id', $request->getParam('exam_id'))
+            ->update([
+                'exam' => ucwords(strtolower($request->getParam('exam'))),
+                'material' => $request->getParam('material'),
+                'normal_values' => $request->getParam('normal_values'),
+                'description' => $request->getParam('description')
+            ]);
+        return $response->withRedirect('/administration/exam/list');
+    }
+
+    public function removeExam($request, $response, $args)
+    {
+        Exam::destroy([$args['id']]);
+        return $response->withRedirect('/administration/exam/list');
+    }
+
+    public function listMedicine($request, $response)
+    {
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'medicines' => Medicine::all()
+        ];
+        return $this->c->view->render($response, 'administration/medicine_list.html', $data);
+    }
+
+    public function addMedicine($request, $response)
+    {
+        $guard = new Csrf;
+        $csrf = $guard->generateCsrf($request);
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'csrf' => $csrf
+        ];
+        return $this->c->view->render($response, 'administration/medicine_add.html', $data);
+    }
+
+    public function postAddMedicine($request, $response)
+    {
+        Medicine::create([
+            'medicine' => ucwords(strtolower($request->getParam('medicine'))),
+            'active_principle' => $request->getParam('active_principle'),
+            'concentration' => $request->getParam('concentration')
+        ]);
+        return $response->withRedirect('/administration/medicine/list');
+    }
+
+    public function editMedicine($request, $response, $args)
+    {
+        $guard = new Csrf;
+        $csrf = $guard->generateCsrf($request);
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'csrf' => $csrf,
+            'medicines' => Medicine::find([$args['id']])
+        ];
+        return $this->c->view->render($response, 'administration/medicine_edit.html', $data);
+    }
+
+    public function postEditMedicine($request, $response)
+    {
+        Medicine::where('id', $request->getParam('medicine_id'))
+            ->update([
+                'medicine' => ucwords(strtolower($request->getParam('medicine'))),
+                'active_principle' => $request->getParam('active_principle'),
+                'concentration' => $request->getParam('concentration')
+            ]);
+        return $response->withRedirect('/administration/medicine/list');
+    }
+
+    public function removeMedicine($request, $response, $args)
+    {
+        Medicine::destroy([$args['id']]);
+        return $response->withRedirect('/administration/medicine/list');
     }
 
 }

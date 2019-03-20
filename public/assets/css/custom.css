@@ -13,3 +13,7 @@
 .sidebar.toggled .nav-item .collapse {
 	z-index: 999;
 }
+
+textarea {
+	resize: none;
+}
