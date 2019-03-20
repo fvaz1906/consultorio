@@ -52,7 +52,6 @@ $app->get('/administration/medicine/remove/{id}', '\App\Controllers\Administrati
 
 //Consultas
 $app->get('/query/list', '\App\Controllers\QueryController:index')->add( new \App\Middleware\Middleware($container));
-$app->get('/query/markedquerys', '\App\Controllers\QueryController:markedQuerys');
 $app->get('/query/add', '\App\Controllers\QueryController:queryAdd')->add( new \App\Middleware\Middleware($container))->setName('query.add');
 $app->post('/query/add', '\App\Controllers\QueryController:add')->add( new \App\Middleware\Middleware($container));
 $app->get('/query/edit/{id}', '\App\Controllers\QueryController:editQuery')->add( new \App\Middleware\Middleware($container));
@@ -66,3 +65,7 @@ $app->get('/finances/print/{id}', '\App\Controllers\FinancesController:print')->
 $app->get('/finances/printReceipt/{id}', '\App\Controllers\FinancesController:print')->add( new \App\Middleware\Middleware($container));
 $app->get('/finances/remove/{id}', '\App\Controllers\FinancesController:remove')->add( new \App\Middleware\Middleware($container));
 $app->get('/finances/receipts/', '\App\Controllers\FinancesController:listReceipts')->add( new \App\Middleware\Middleware($container));
+
+//APIS
+$app->get('/query/markedquerys', '\App\Controllers\QueryController:markedQuerys');
+$app->get('/query/patients', '\App\Controllers\QueryController:patients');

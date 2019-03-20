@@ -22,10 +22,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>CPF:</label>
-                                    <input type="text" class="form-control" placeholder="CPF" name="cpf" data-mask="000.000.000-00" required>
+                                    <label>Paciente:</label>
+                                    <input type="text" class="form-control" id="patients" placeholder="Paciente" name="name" required>
                                     <div class="valid-feedback"> Ok! </div>
-                                    <div class="invalid-feedback"> CPF obrigatório, insira seu CPF. </div>
+                                    <div class="invalid-feedback"> Nome obrigatório, insira o nome do Paciente. </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -34,7 +34,7 @@
                                     <select class="form-control" name="user" required>
                                     <option value=""></option>
                                     {% for medico in medicos %}
-                                        <option value="{{medico.id}}">{{medico.name}}</option>
+                                        <option value="{{medico.id}}">Dr(a). {{medico.name}}</option>
                                     {% endfor %}
                                     </select>
                                     <div class="valid-feedback"> Ok! </div>

@@ -249,7 +249,10 @@ class AdministrationController extends BaseController
         Medicine::create([
             'medicine' => ucwords(strtolower($request->getParam('medicine'))),
             'active_principle' => $request->getParam('active_principle'),
-            'concentration' => $request->getParam('concentration')
+            'concentration' => $request->getParam('concentration'),
+            'type_use' => $request->getParam('type_use'),
+            'type_packing' => strtolower($request->getParam('type_packing')),
+            'dosage' => strtolower($request->getParam('dosage'))
         ]);
         return $response->withRedirect('/administration/medicine/list');
     }
@@ -273,7 +276,10 @@ class AdministrationController extends BaseController
             ->update([
                 'medicine' => ucwords(strtolower($request->getParam('medicine'))),
                 'active_principle' => $request->getParam('active_principle'),
-                'concentration' => $request->getParam('concentration')
+                'concentration' => $request->getParam('concentration'),
+                'type_use' => $request->getParam('type_use'),
+                'type_packing' => strtolower($request->getParam('type_packing')),
+                'dosage' => strtolower($request->getParam('dosage'))
             ]);
         return $response->withRedirect('/administration/medicine/list');
     }

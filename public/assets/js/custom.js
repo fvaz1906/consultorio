@@ -38,3 +38,16 @@ $(".form-check-input").change(function() {
         $("#cpf").attr('required', true);
     }
 });
+
+//Autocomplete Agendamento de Consultas
+if($("#patients").attr('name') != '') {
+    $.getJSON( 'http://consultorio.dev.br/query/patients', function( data ) {
+        var names = [];
+        $.each( data, function( key, val ) {
+            names.push(val.name);
+        });
+        $( "#patients" ).autocomplete({
+            source: names
+        });
+    });
+}

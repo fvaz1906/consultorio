@@ -27,11 +27,10 @@ class QueryController extends BaseController
     {
         $guard = new Csrf;
         $csrf = $guard->generateCsrf($request);
-        $medicos = User::all();
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
-            'medicos' => $medicos,
+            'medicos' => User::where('id', '!=', 9)->get(),
             'csrf' => $csrf
         ];
         return $this->c->view->render($response, 'query/query_add.html', $data);
@@ -42,7 +41,7 @@ class QueryController extends BaseController
         $date = explode('/', $request->getParam('date_query'));
         $datePart = explode(' ', $date[2]);
         $data = $datePart[0] . '-' . $date[1] . '-' . $date[0] . ' ' . $datePart[1] . ':00';
-        $paciente = Patient::where('cpf', str_replace('.','', str_replace('-','', $request->getParam('cpf'))))->first();
+        $paciente = Patient::select('walt_patient.id')->where('name', $request->getParam('name'))->first();
         if ($paciente->id):
             Query::create([
                 'patient' => $paciente->id,
@@ -98,6 +97,11 @@ class QueryController extends BaseController
         return $marked_querys->toJson(JSON_PRETTY_PRINT);
     }
 
+    public function patients()
+    {
+        $patient = Patient::select('walt_patient.name')->get();
+        return $patient->toJson(JSON_PRETTY_PRINT);
+    }
 }
 
 

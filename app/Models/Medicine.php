@@ -8,5 +8,5 @@ class Medicine extends Model
 {
     protected $table = "walt_medicine";
     public $timestamps = true;
-    protected $fillable = [ 'medicine', 'active_principle', 'concentration' ];
+    protected $fillable = [ 'medicine', 'active_principle', 'concentration', 'type_use', 'type_packing', 'dosage' ];
 }
