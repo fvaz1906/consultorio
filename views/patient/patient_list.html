@@ -43,11 +43,11 @@
                                 <td>{{ patient.cpf }}</td>
                                 <td>{{ patient.cellphone }}</td>
                                 <td>{{ patient.email }}</td>
-                                    {% for agreement in agreements %}
-                                        {% if agreement.id == patient.agreement %}
-                                            <td>{{ agreement.agreement }}</td>
-                                        {% endif %}
-                                    {% endfor %}
+                                {% if patient.agreement == '' %}
+                                    <td>Sem convênio</td>
+                                {% else %}
+                                    <td>{{ patient.agreement }}</td>
+                                {% endif %}
                                 <td>
                                     <a class="btn btn-warning btn-circle btn-sm" href="/patient/edit/{{ patient.id }}"><i class="fas fa-edit"></i></a>
                                     <a class="btn btn-danger btn-circle btn-sm" href="/patient/remove/{{ patient.id }}"><i class="fas fa-times-circle"></i></a>

@@ -66,6 +66,9 @@ $app->get('/finances/printReceipt/{id}', '\App\Controllers\FinancesController:pr
 $app->get('/finances/remove/{id}', '\App\Controllers\FinancesController:remove')->add( new \App\Middleware\Middleware($container));
 $app->get('/finances/receipts/', '\App\Controllers\FinancesController:listReceipts')->add( new \App\Middleware\Middleware($container));
 
+//Documentos
+$app->get('/documents/recipe/list', '\App\Controllers\DocumentController:listRecipe')->add( new \App\Middleware\Middleware($container));
+
 //APIS
 $app->get('/query/markedquerys', '\App\Controllers\QueryController:markedQuerys');
 $app->get('/query/patients', '\App\Controllers\QueryController:patients');

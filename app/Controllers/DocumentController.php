@@ -2,43 +2,50 @@
 
 namespace App\Controllers;
 
-use App\Models\Agreement;
-use App\Models\Patient;
-use App\Models\Csrf;
-
-class PatientController extends BaseController
+class DocumentController extends BaseController
 {
+
+    private $name_user; 
+    private $photo_user;
+
+    public function __construct()
+    {
+        $this->name_user = $_SESSION['NAME'];
+        $this->name_user = '/assets/images/default-avatar.jpg';
+    }
+
     public function index($request, $response)
     {
-        $data = [
+        /*$data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'patients' => Patient::select('walt_patient.id', 'walt_patient.name', 'walt_patient.cpf', 'walt_patient.cellphone', 'walt_patient.email', 'walt_agreement.agreement')->leftJoin('walt_agreement', 'walt_patient.agreement', '=', 'walt_agreement.id')->get()
         ];
+        return $this->c->view->render($response, 'patient/patient_list.html', $data);*/
+    }
 
-        return $this->c->view->render($response, 'patient/patient_list.html', $data);
+    public function listRecipe($request, $response)
+    {
+        echo $this->name_user;
     }
 
     public function addPatient($request, $response)
     {
-        $guard = new Csrf;
+        /*$guard = new Csrf;
         $csrf = $guard->generateCsrf($request);
-
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
             'agreements' => Agreement::all(),
             'csrf' => $csrf
         ];
-        
-        return $this->c->view->render($response, 'patient/patient_add.html', $data);
+        return $this->c->view->render($response, 'patient/patient_add.html', $data);*/
     }
 
     public function editPatient($request, $response, $args)
     {
-        $guard = new Csrf;
+        /*-$guard = new Csrf;
         $csrf = $guard->generateCsrf($request);
-
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
@@ -46,13 +53,12 @@ class PatientController extends BaseController
             'patients' => Patient::find([$args['id']]),
             'agreements' => Agreement::all()
         ];
-
-        return $this->c->view->render($response, 'patient/patient_edit.html', $data);
+        return $this->c->view->render($response, 'patient/patient_edit.html', $data);*/
     }
 
     public function add($request, $response)
     {
-        Patient::create([
+        /*Patient::create([
             'name' => ucwords(strtolower($request->getParam('name'))),
             'sex' => $request->getParam('sex'),
             'date_birth' => $request->getParam('date_birth'),
@@ -69,13 +75,12 @@ class PatientController extends BaseController
             'state' => $request->getParam('state'),
             'agreement' => $request->getParam('agreement') == null ? null:$request->getParam('agreement')
         ]);
-
-        return $response->withRedirect('/patient/list');
+        return $response->withRedirect('/patient/list');*/
     }
 
     public function edit($request, $response)
     {
-        Patient::where('id', $request->getParam('patient_id'))->update([
+        /*Patient::where('id', $request->getParam('patient_id'))->update([
             'name' => ucwords(strtolower($request->getParam('name'))),
             'sex' => $request->getParam('sex'),
             'date_birth' => $request->getParam('date_birth'),
@@ -92,13 +97,13 @@ class PatientController extends BaseController
             'state' => $request->getParam('state'),
             'agreement' => $request->getParam('agreement') == null ? null:$request->getParam('agreement')
         ]);
-        return $response->withRedirect('/patient/list');
+        return $response->withRedirect('/patient/list');*/
     }
 
     public function remove($request, $response, $args)
     {
-        Patient::destroy([$args['id']]);
-        return $response->withRedirect('/patient/list');
+        /*Patient::destroy([$args['id']]);
+        return $response->withRedirect('/patient/list');*/
     }
 
 }
