@@ -37,6 +37,7 @@ class Auth
         $data->token = $this->getToken();
         if($data->save()):
             $_SESSION['TOKEN'] = $this->getToken();
+            $_SESSION['ID'] = $data->id;
             $_SESSION['USER'] = $data->email;
             $_SESSION['PERFIL'] = $data->perfil;
             $_SESSION['CRM_CPF'] = $data->crm_cpf;

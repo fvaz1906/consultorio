@@ -290,4 +290,10 @@ class AdministrationController extends BaseController
         return $response->withRedirect('/administration/medicine/list');
     }
 
+    public function medicine()
+    {
+        $medicine = Medicine::select('walt_medicine.medicine')->get();
+        return $medicine->toJson(JSON_PRETTY_PRINT);
+    }
+
 }

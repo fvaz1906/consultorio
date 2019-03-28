@@ -68,7 +68,10 @@ $app->get('/finances/receipts/', '\App\Controllers\FinancesController:listReceip
 
 //Documentos
 $app->get('/documents/recipe/list', '\App\Controllers\DocumentController:listRecipe')->add( new \App\Middleware\Middleware($container));
+$app->get('/documents/recipe/add/{id}', '\App\Controllers\DocumentController:addRecipe')->add( new \App\Middleware\Middleware($container));
+$app->post('/documents/recipe/add', '\App\Controllers\DocumentController:addRecipeMedicine')->add( new \App\Middleware\Middleware($container));
 
 //APIS
 $app->get('/query/markedquerys', '\App\Controllers\QueryController:markedQuerys');
 $app->get('/query/patients', '\App\Controllers\QueryController:patients');
+$app->get('/administration/medicine', '\App\Controllers\AdministrationController:medicine');

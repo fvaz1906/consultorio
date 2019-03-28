@@ -2,17 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\Recipe;
+use App\Models\RecipeMedicine;
+use App\Models\Patient;
+use App\Models\Medicine;
+use App\Models\Csrf;
+
 class DocumentController extends BaseController
 {
-
-    private $name_user; 
-    private $photo_user;
-
-    public function __construct()
-    {
-        $this->name_user = $_SESSION['NAME'];
-        $this->name_user = '/assets/images/default-avatar.jpg';
-    }
 
     public function index($request, $response)
     {
@@ -26,20 +23,40 @@ class DocumentController extends BaseController
 
     public function listRecipe($request, $response)
     {
-        echo $this->name_user;
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'recipes' => Recipe::select('walt_usuarios.name as doctor', 'walt_patient.name as patient', 'walt_recipe.created_at')->join('walt_usuarios', 'walt_recipe.id_doctor', '=', 'walt_usuarios.id')->join('walt_patient', 'walt_recipe.id_patient', '=', 'walt_patient.id')->get()
+        ];
+        return $this->c->view->render($response, 'documents/recipe_list.html', $data);
     }
 
-    public function addPatient($request, $response)
+    public function addRecipe($request, $response, $args)
     {
-        /*$guard = new Csrf;
+        $guard = new Csrf;
         $csrf = $guard->generateCsrf($request);
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
-            'agreements' => Agreement::all(),
+            'id_doctor' => $_SESSION['ID'],
+            'id_patient' => $args['id'],
+            'medicines' => Medicine::all(),
             'csrf' => $csrf
         ];
-        return $this->c->view->render($response, 'patient/patient_add.html', $data);*/
+        return $this->c->view->render($response, 'documents/recipe_add.html', $data);
+    }
+
+    public function addRecipeMedicine($request, $response)
+    {
+        $recipe = Recipe::create([
+            'id_doctor' => $request->getParam('id_doctor'),
+            'id_patient' => $request->getParam('id_patient'),
+            'annotation' => $request->getParam('annotation') == null ? null:$request->getParam('annotation')
+        ]);
+        foreach ($request->getParam('medicine') as $value):
+            RecipeMedicine::create(['id_recipe' => $recipe->id, 'id_medicine' => $value]);
+        endforeach;
+        return $response->withRedirect('/documents/recipe/list');
     }
 
     public function editPatient($request, $response, $args)

@@ -1,0 +1,55 @@
+{% extends "template/layout.html" %}
+
+{% block title %}Lista de Receitas{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/documents/recipe/list">Receitas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lista de Receitas</li>
+                </ol>
+            </nav>
+            <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3 class="m-1 font-weight-bold text-primary">Lista de Receitas</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr align="center">
+                                    <th>Médico</th>
+                                    <th>Paciente</th>
+                                    <th>Data de Criação</th>
+                                    <!--<th>Opções</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for recipe in recipes %}
+                                    <tr align="center">
+                                        <td>{{ recipe.doctor }}</td>
+                                        <td>{{ recipe.patient }}</td>
+                                        <td>{{ recipe.created_at|date("d/m/Y H:i") }}</td>
+                                        <!--<td>
+                                            <a class="btn btn-warning btn-circle btn-sm" href="/documents/recipe/edit/{{ recipe.id }}"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger btn-circle btn-sm" href="/documents/recipe/remove/{{ recipe.id }}"><i class="fas fa-times-circle"></i></a>
+                                        </td>-->
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block footer %}{% endblock %}
+    </div>
+{% endblock %}
