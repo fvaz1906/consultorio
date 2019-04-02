@@ -5,11 +5,13 @@ $container = $app->getContainer();
 //Container untuk View
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig( __DIR__ . '/../views', [
-        'cache' => false
+        'cache' => false,
+        'debug' => true
     ]);
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
     $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
+    $view->addExtension(new \Twig\Extension\DebugExtension());
 
     return $view;
 };

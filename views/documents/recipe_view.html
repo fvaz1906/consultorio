@@ -1,0 +1,70 @@
+{% extends "template/layout.html" %}
+
+{% block title %}Vizualização de Receitas{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/documents/recipe/list">Receitas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lista de Receitas</li>
+                </ol>
+            </nav>
+            <div class="card shadow mb-12">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Vizualização da Receita</h6>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                            {% for recipePatient in recipePatients %}
+                                <p><b>Informações do doutor:</b></p>
+                                <p><i class="fas fa-user-md"></i> Dr. {{recipePatient.doctor}}</p>
+                                <p><i class="fas fa-id-card"></i> CRM: {{recipePatient.crm}}</p>
+                                <p><b>Informações do paciente:</b></p>
+                                <p><i class="fas fa-user"></i> {{recipePatient.patient}}</p>
+                                <p><i class="fas fa-id-card"></i> CPF: {{recipePatient.patient_cpf}}</p>
+                                <p><i class="fas fa-phone-square"></i> Celular: {{recipePatient.patient_cellphone}}</p>
+                                <p><i class="fas fa-mail-bulk"></i> E-mail: {{recipePatient.patient_email}}</p>
+                            {% endfor %}
+                            </div>
+                            <div class="col-md-8">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr align="center">
+                                            <th colspan="4">Receita</th>
+                                        </tr>
+                                        <tr align="center">
+                                            <th>Medicação</th>
+                                            <th>Tipo de Uso</th>
+                                            <th>Tipo de pacote</th>
+                                            <th>Dosagem</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for recipeMedicine in recipeMedicines %}
+                                            <tr align="center">
+                                                <td>{{ recipeMedicine.medicine }}</td>
+                                                <td>{{ recipeMedicine.type_use }}</td>
+                                                <td>{{ recipeMedicine.type_packing }}</td>
+                                                <td>{{ recipeMedicine.dosage }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% for recipePatient in recipePatients %}
+                                    <p>Anotações: {{recipePatient.annotation}}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

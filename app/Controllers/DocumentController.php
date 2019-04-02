@@ -26,7 +26,7 @@ class DocumentController extends BaseController
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
-            'recipes' => Recipe::select('walt_usuarios.name as doctor', 'walt_patient.name as patient', 'walt_recipe.created_at')->join('walt_usuarios', 'walt_recipe.id_doctor', '=', 'walt_usuarios.id')->join('walt_patient', 'walt_recipe.id_patient', '=', 'walt_patient.id')->get()
+            'recipes' => Recipe::select('walt_recipe.id', 'walt_usuarios.name as doctor', 'walt_patient.name as patient', 'walt_recipe.created_at')->join('walt_usuarios', 'walt_recipe.id_doctor', '=', 'walt_usuarios.id')->join('walt_patient', 'walt_recipe.id_patient', '=', 'walt_patient.id')->get()
         ];
         return $this->c->view->render($response, 'documents/recipe_list.html', $data);
     }
@@ -59,18 +59,15 @@ class DocumentController extends BaseController
         return $response->withRedirect('/documents/recipe/list');
     }
 
-    public function editPatient($request, $response, $args)
+    public function viewRecipe($request, $response, $args)
     {
-        /*-$guard = new Csrf;
-        $csrf = $guard->generateCsrf($request);
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
-            'csrf' => $csrf,
-            'patients' => Patient::find([$args['id']]),
-            'agreements' => Agreement::all()
+            'recipePatients' => Recipe::select('walt_usuarios.name as doctor', 'walt_usuarios.crm_cpf as crm', 'walt_patient.name as patient', 'walt_patient.cpf as patient_cpf', 'walt_patient.cellphone as patient_cellphone', 'walt_patient.email as patient_email', 'walt_recipe.annotation')->join('walt_usuarios', 'walt_recipe.id_doctor', '=', 'walt_usuarios.id')->join('walt_patient', 'walt_recipe.id_patient', '=', 'walt_patient.id')->where('walt_recipe.id', '=', $args['id'])->get(),
+            'recipeMedicines' => RecipeMedicine::select('walt_medicine.medicine', 'walt_medicine.active_principle', 'walt_medicine.type_use', 'walt_medicine.type_packing', 'walt_medicine.dosage')->join('walt_medicine', 'walt_recipe_medicine.id_medicine', '=', 'walt_medicine.id')->where('id_recipe', '=', $args['id'])->get()
         ];
-        return $this->c->view->render($response, 'patient/patient_edit.html', $data);*/
+        return $this->c->view->render($response, 'documents/recipe_view.html', $data);
     }
 
     public function add($request, $response)

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Agreement;
 use App\Models\Patient;
 use App\Models\Csrf;
+use App\Models\Query;
 
 class PatientController extends BaseController
 {
@@ -101,4 +102,14 @@ class PatientController extends BaseController
         return $response->withRedirect('/patient/list');
     }
 
+    public function view($request, $response, $args)
+    {
+        $data = [
+            'name_user' => $_SESSION['NAME'],
+            'photo_user' => '/assets/images/default-avatar.jpg',
+            'patients' => Patient::find($args['id'])
+        ];
+
+        return $this->c->view->render($response, 'patient/patient_view.html', $data);
+    }
 }

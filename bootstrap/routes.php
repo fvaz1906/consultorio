@@ -17,6 +17,7 @@ $app->post('/patient/add', '\App\Controllers\PatientController:add')->add( new \
 $app->get('/patient/edit/{id}', '\App\Controllers\PatientController:editPatient')->add( new \App\Middleware\Middleware($container));
 $app->post('/patient/edit', '\App\Controllers\PatientController:edit')->add( new \App\Middleware\Middleware($container))->setName('patient.edit');
 $app->get('/patient/remove/{id}', '\App\Controllers\PatientController:remove')->add( new \App\Middleware\Middleware($container));
+$app->get('/patient/view/{id}', '\App\Controllers\PatientController:view')->add( new \App\Middleware\Middleware($container));
 
 //Admnistração
 // -- Convênios
@@ -70,6 +71,7 @@ $app->get('/finances/receipts/', '\App\Controllers\FinancesController:listReceip
 $app->get('/documents/recipe/list', '\App\Controllers\DocumentController:listRecipe')->add( new \App\Middleware\Middleware($container));
 $app->get('/documents/recipe/add/{id}', '\App\Controllers\DocumentController:addRecipe')->add( new \App\Middleware\Middleware($container));
 $app->post('/documents/recipe/add', '\App\Controllers\DocumentController:addRecipeMedicine')->add( new \App\Middleware\Middleware($container));
+$app->get('/documents/recipe/view/{id}', '\App\Controllers\DocumentController:viewRecipe')->add( new \App\Middleware\Middleware($container));
 
 //APIS
 $app->get('/query/markedquerys', '\App\Controllers\QueryController:markedQuerys');
