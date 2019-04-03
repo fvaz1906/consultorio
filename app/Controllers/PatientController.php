@@ -6,6 +6,7 @@ use App\Models\Agreement;
 use App\Models\Patient;
 use App\Models\Csrf;
 use App\Models\Query;
+use App\Models\User;
 
 class PatientController extends BaseController
 {
@@ -53,7 +54,7 @@ class PatientController extends BaseController
 
     public function add($request, $response)
     {
-        Patient::create([
+        $patient = Patient::create([
             'name' => ucwords(strtolower($request->getParam('name'))),
             'sex' => $request->getParam('sex'),
             'date_birth' => $request->getParam('date_birth'),
@@ -71,7 +72,7 @@ class PatientController extends BaseController
             'agreement' => $request->getParam('agreement') == null ? null:$request->getParam('agreement')
         ]);
 
-        return $response->withRedirect('/patient/list');
+        return $response->withRedirect('/patient/view/' . $patient->id);
     }
 
     public function edit($request, $response)
@@ -93,7 +94,7 @@ class PatientController extends BaseController
             'state' => $request->getParam('state'),
             'agreement' => $request->getParam('agreement') == null ? null:$request->getParam('agreement')
         ]);
-        return $response->withRedirect('/patient/list');
+        return $response->withRedirect('/patient/view/' . $request->getParam('patient_id'));
     }
 
     public function remove($request, $response, $args)
@@ -104,10 +105,17 @@ class PatientController extends BaseController
 
     public function view($request, $response, $args)
     {
+        $guard = new Csrf;
+        $csrf = $guard->generateCsrf($request);
+
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
-            'patients' => Patient::find($args['id'])
+            'patients' => Patient::find($args['id']),
+            'querys' => Query::select('walt_query.id', 'walt_query.patient as patient_id', 'walt_patient.name as patient_name', 'walt_usuarios.name as doctor_name', 'walt_query.date_query')->join('walt_patient', 'walt_query.patient', '=', 'walt_patient.id')->join('walt_usuarios', 'walt_query.user', '=', 'walt_usuarios.id')->where('walt_query.date_query', '>', date('Y-m-d H:i:s'))->where('walt_query.patient', '=', $args['id'])->get(),
+            'histQuerys' => Query::select('walt_query.id', 'walt_query.patient as patient_id', 'walt_patient.name as patient_name', 'walt_usuarios.name as doctor_name', 'walt_query.date_query')->join('walt_patient', 'walt_query.patient', '=', 'walt_patient.id')->join('walt_usuarios', 'walt_query.user', '=', 'walt_usuarios.id')->where('walt_query.date_query', '<', date('Y-m-d H:i:s'))->where('walt_query.patient', '=', $args['id'])->get(),
+            'doctors' => User::where('perfil', '=', 1)->where('email', '!=', 'admin@teste.com')->get(),
+            'csrf' => $csrf
         ];
 
         return $this->c->view->render($response, 'patient/patient_view.html', $data);

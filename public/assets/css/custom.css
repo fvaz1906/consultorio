@@ -17,3 +17,7 @@
 textarea {
 	resize: none;
 }
+
+#perfilPaciente {
+	padding: 3em;
+}

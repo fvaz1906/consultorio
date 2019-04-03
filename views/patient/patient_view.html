@@ -20,10 +20,22 @@
                 <div class="card-body">
                     <div class="container">
                         <div class="row">
+                            <div class="col-md-12">
+                                <a class="btn btn-danger" href="/patient/edit/{{patients.id}}"><i class="fas fa-user"></i> Atualizar Paciente</a>
+                                <a class="btn btn-warning" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-calendar-alt"></i> Agendar Consulta</a>
+                                <a class="btn btn-primary" href="#"><i class="fas fa-file-contract"></i> Solicitar Exame</a>
+                                <a class="btn btn-primary" href="#"><i class="fas fa-file-contract"></i> Emitir Declaração</a>
+                                <a class="btn btn-primary" href="/documents/recipe/add/{{patients.id}}"><i class="fas fa-file-contract"></i> Emitir Receita</a>
+                                <a class="btn btn-primary" href="#"><i class="fas fa-file-contract"></i> Emitir Atestado</a>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 {% set anoNasc = patients.date_birth|date("Y") %}
                                 {% set anoAtual = "now"|date("Y") %}
                                 {% set idade = anoAtual - anoNasc %}
+                                <img src="/assets/images/user.png" id="perfilPaciente" class="img-fluid" alt="Responsive image">
                                 <p><b>Informações do paciente:</b></p>
                                 <p><i class="fas fa-user"></i> {{patients.name}}</p>
                                 <p><i class="fas fa-venus-mars"></i> Gênero: {{patients.sex}}</p>
@@ -34,46 +46,84 @@
                                 <p><i class="fas fa-address-card"></i> Endereço: {{patients.street}}, {{patients.number}} - {{patients.neighborhood}}, {{patients.city}}/{{patients.state}}</p>
                             </div>
                             <div class="col-md-8">
-                                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
+                                <h5 class="text-danger"><b>Consultas Agendadas</b></h5>
+                                <table class="table table-bordered table-sm dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr align="center" class="table-info">
-                                            <th colspan="4">Consultas Agendadas</th>
-                                        </tr>
                                         <tr align="center">
-                                            <th>Data da Consulta</th>
                                             <th>Médico</th>
+                                            <th>Data da Consulta</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr align="center">
-                                            <td></td>
-                                            <td></td>
+                                        {% for query in querys %}
+                                        <tr>
+                                            <td>{{ query.doctor_name }}</td>
+                                            <td>{{ query.date_query|date("d/m/Y H:i") }}</td>
                                         </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
-                                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
+                                <hr>
+                                <h5 class="text-danger"><b>Histórico de Consultas</b></h5>
+                                <table class="table table-bordered table-sm dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr align="center" class="table-info">
-                                            <th colspan="4">Histórico de Consultas</th>
-                                        </tr>
                                         <tr align="center">
-                                            <th>Data da Consulta</th>
                                             <th>Médico</th>
+                                            <th>Data da Consulta</th>
                                             <th>Ficha</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr align="center">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        {% for histQuery in histQuerys %}
+                                        <tr>
+                                            <td>{{ histQuery.doctor_name }}</td>
+                                            <td>{{ histQuery.date_query|date("d/m/Y H:i") }}</td>
+                                            <td>Não compareceu</td>
                                         </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary text-gray-100">
+                <h5 class="modal-title" id="exampleModalLabel">Agendamento de Consulta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" action="{{ path_for('query.add') }}" method="POST" autocomplete="off" novalidate>
+                    <div class="form-group">
+                        <label>Selecione o Médico</label>
+                        <select class="form-control" name="user" required>
+                            <option></option>
+                            {% for doctor in doctors %}
+                                <option value="{{doctor.id}}">{{doctor.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="valid-feedback"> Ok! </div>
+                        <div class="invalid-feedback"> Médico obrigatório, insira seu médico de preferência. </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Data da Consulta:</label>
+                        <input type="text" class="form-control" placeholder="DD/MM/AAAA HH:MM" name="date_query" data-mask="00/00/0000 00:00" required>
+                        <div class="valid-feedback"> Ok! </div>
+                        <div class="invalid-feedback"> Data da consulta obrigatória, insira sua data da consulta. </div>
+                    </div>
+                    <input type="hidden" name="patient_id" value="{{patients.id}}">
+                    <input type="hidden" name="{{ csrf.nameKey }}" value="{{ csrf.name }}">
+                    <input type="hidden" name="{{ csrf.valueKey }}" value="{{ csrf.value }}">
+                    <button type="submit" class="btn btn-danger fa-pull-right">Agendar Consulta</button>
+                </form>
             </div>
         </div>
     </div>

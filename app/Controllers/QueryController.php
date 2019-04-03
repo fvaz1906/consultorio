@@ -15,9 +15,7 @@ class QueryController extends BaseController
         $data = [
             'name_user' => $_SESSION['NAME'],
             'photo_user' => '/assets/images/default-avatar.jpg',
-            'querys' => Query::all(),
-            'patients' => Patient::all(),
-            'users' => User::all()
+            'querys' => Query::select('walt_query.id', 'walt_query.patient as patient_id', 'walt_patient.name as patient_name', 'walt_usuarios.name as doctor_name', 'walt_query.date_query')->join('walt_patient', 'walt_query.patient', '=', 'walt_patient.id')->join('walt_usuarios', 'walt_query.user', '=', 'walt_usuarios.id')->where('walt_query.date_query', '>', date('Y-m-d H:i:s'))->get()
         ];
 
         return $this->c->view->render($response, 'query/query_list.html', $data);
@@ -41,16 +39,13 @@ class QueryController extends BaseController
         $date = explode('/', $request->getParam('date_query'));
         $datePart = explode(' ', $date[2]);
         $data = $datePart[0] . '-' . $date[1] . '-' . $date[0] . ' ' . $datePart[1] . ':00';
-        $paciente = Patient::select('walt_patient.id')->where('name', $request->getParam('name'))->first();
-        if ($paciente->id):
+        if ($request->getParam('patient_id')):
             Query::create([
-                'patient' => $paciente->id,
+                'patient' => $request->getParam('patient_id'),
                 'user' => $request->getParam('user'),
                 'date_query' => $data
             ]);
-            return $response->withRedirect('/query/list');
-        else:
-            return $response->withRedirect('/query/add');
+            return $response->withRedirect('/patient/view/' . $request->getParam('patient_id'));
         endif;
     }
 

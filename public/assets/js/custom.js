@@ -54,11 +54,6 @@ if($("#patients").attr('name') != '') {
 
 //Confirma opções de usuário
 if($('#listPatient').text() == 'listPatient') {
-    function issueRevenue(id) {
-        if(confirm("Deseja emitir uma receita?")){
-            window.location.href = '/documents/recipe/add/' + id;
-        }
-    }
     function deletePatient(id) {
         if(confirm("Deseja realmente excluir este paciente?")){
             window.location.href = '/patient/remove/' + id;
@@ -67,11 +62,6 @@ if($('#listPatient').text() == 'listPatient') {
     function editPatient(id) {
         if(confirm("Deseja realmente editar este paciente?")){
             window.location.href = '/patient/edit/' + id;
-        }
-    }
-    function viewPatient(id) {
-        if(confirm("Deseja realmente vizualizar o perfil deste paciente?")){
-            window.location.href = '/patient/view/' + id;
         }
     }
 }
